@@ -16,3 +16,9 @@ div#board .square {
 div#board .empty {
   border: 1px solid DimGrey;
 }
+
+div#board .tile {
+  width: 100%;
+  height: 100%;
+  background-color: red;
+}
