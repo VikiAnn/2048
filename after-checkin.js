@@ -1,32 +1,43 @@
-require('locus')
-var tile2 = function() {
-  return { number: 2, cssClass: "tile" };
+require('locus');
+var _ = require("underscore");
+
+var tile = function(num) {
+  return { number: num, cssClass: "tile" };
 };
 
 var row1col1 = {
-  occupant: tile2(),
+  occupant: tile(2),
 };
+
 var row1col2 = {
   occupant: null,
 };
+
 var row1col3 = {
-  occupant: null,
-};
-var row1col4 = {
-  occupant: null,
+  occupant: tile(2),
 };
 
+var row1col4 = {
+  occupant: tile(4),
+};
 
 var row1 =[row1col1, row1col2, row1col3, row1col4]
 
 var moveRowRight = function(row) {
   do {
-    startingRow = row
+    var startingRow = []
+    rowContents(row, startingRow)
     var newRow = getNextRowIteration(row);
-  } while (newRow !== startingRow);
+  } while (!_.isEqual(rowContents(newRow, []), startingRow));
   return newRow;
 };
 
+var rowContents = function(row, newArray) {
+  for (i=0; i < row.length; i++) {
+    newArray[i] = Boolean(row[i].occupant)
+  };
+  return newArray
+};
 
 var getNextRowIteration = function(row) {
   for (i=0; i < (row.length - 1); i++) {
@@ -34,7 +45,6 @@ var getNextRowIteration = function(row) {
   };
   return row
 }
-
 
 var moveTileRightIfTileExists = function(row, index) {
   var currentSquare = row[index];
