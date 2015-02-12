@@ -1,6 +1,6 @@
 module('testing some stuff');
 
-test('moveRowRight()', function(assert) {
+test('slideTilesAndCombineMatches()', function(assert) {
   var tile = function(num) {
     return { number: num, cssClass: "tile" };
   };
@@ -30,7 +30,7 @@ test('moveRowRight()', function(assert) {
 
   var row = [row1col1, row1col2, row1col3, row1col4];
 
-  assert.deepEqual(moveRowRight(row), movedRow);
+  assert.deepEqual(slideTilesAndCombineMatches(row), movedRow);
 });
 
 test('it combines two tiles', function(assert) {
@@ -63,7 +63,7 @@ test('it combines two tiles', function(assert) {
 
   var row = [row1col1, row1col2, row1col3, row1col4];
 
-  assert.deepEqual(moveRowRight(row), movedRow);
+  assert.deepEqual(slideTilesAndCombineMatches(row), movedRow);
 });
 
 test('it combines tiles only once', function(assert) {
@@ -96,5 +96,5 @@ test('it combines tiles only once', function(assert) {
 
   var row = [row1col1, row1col2, row1col3, row1col4];
 
-  assert.deepEqual(moveRowRight(row), movedRow);
+  assert.deepEqual(slideTilesAndCombineMatches(row), movedRow);
 });
