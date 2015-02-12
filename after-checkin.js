@@ -21,15 +21,32 @@ var row1col4 = {
   occupant: tile(4),
 };
 
-var row1 =[row1col1, row1col2, row1col3, row1col4]
+var row1 = [row1col1, row1col2, row1col3, row1col4]
 
 var moveRowRight = function(row) {
   do {
     var startingRow = []
     rowContents(row, startingRow)
-    var newRow = getNextRowIteration(row);
-  } while (!_.isEqual(rowContents(newRow, []), startingRow));
-  return newRow;
+    row = getNextRowIteration(row);
+  } while (!_.isEqual(rowContents(row, []), startingRow));
+
+  if (row === combineMatchIfMatchExists(row)) {
+    return row;
+  } else {
+    moveRowRight(combineMatchIfMatchExists(row));
+  };
+};
+
+var combineMatchIfMatchExists = function(row) {
+  for (var i = 0; i < (row.length - 1); i++){
+    if (!row[i].occupant) {
+      continue;
+    } else if (row[i].occupant.number === row[i + 1].occupant.number) {
+      row[i].occupant = null;
+      row[i + 1].occupant.number *= 2;
+    };
+  };
+  return row
 };
 
 var rowContents = function(row, newArray) {
