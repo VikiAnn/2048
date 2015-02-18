@@ -9,6 +9,7 @@ function gridSquare(occupant, gridPosition) {
            gridPosition: gridPosition };
 }
 
+
 function gridRow(tiles) {
   return [gridSquare(tiles[0]), gridSquare(tiles[1]), gridSquare(tiles[2]), gridSquare(tiles[3])];
 }
@@ -21,23 +22,28 @@ $(document).ready( function () {
   renderBoard();
 
   $('body').keydown( function (e) {
-    // row2.forEach()
     switch (e.which){
       case 37:
         slideAllTiles("left");
+        clearBoard();
+        renderBoard();
         break;
       case 38:
         slideAllTiles("up");
+        clearBoard();
+        renderBoard();
         break;
       case 39:
         slideAllTiles("right");
+        clearBoard();
+        renderBoard();
         break;
       case 40:
         slideAllTiles("down");
+        clearBoard();
+        renderBoard();
         break;
     };
-    clearBoard();
-    renderBoard();
   })
 });
 
@@ -219,3 +225,9 @@ var board = [
   row4col3,
   row4col4
 ];
+
+function logBoard () {
+  for (var i = 0; i < board.length; i++) {
+    console.log(board[i])
+  }
+}
