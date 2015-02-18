@@ -1,11 +1,116 @@
-function slideTilesAndCombineMatches(row) {
-  moveRowRight(row)
-  if (!hasMatches(row)) {
-    return row;
+function tile(num) {
+  return { number: num, cssClass: "tile" };
+};
+
+function gridSquare(occupant, name) {
+  return { occupant: occupant,
+           name: name };
+}
+
+var row1col1 = gridSquare(null, "row1col1");
+var row1col2 = gridSquare(null, "row1col2");
+var row1col3 = gridSquare(null, "row1col3");
+var row1col4 = gridSquare(null, "row1col4");
+
+
+var row2col1 = gridSquare(null, "row2col1");
+var row2col2 = gridSquare(null, "row2col2");
+var row2col3 = gridSquare(null, "row2col3");
+var row2col4 = gridSquare(null, "row2col4");
+
+var row3col1 = gridSquare(null, "row3col1");
+var row3col2 = gridSquare(null, "row3col2");
+var row3col3 = gridSquare(null, "row3col3");
+var row3col4 = gridSquare(null, "row3col4");
+
+
+var row4col1 = gridSquare(null, "row4col1");
+var row4col2 = gridSquare(null, "row4col2");
+var row4col3 = gridSquare(null, "row4col3");
+var row4col4 = gridSquare(null, "row4col4");
+
+var column1 = [row1col1, row2col1, row3col1, row4col1];
+var column2 = [row1col2, row2col2, row3col2, row4col2];
+var column3 = [row1col3, row2col3, row3col3, row4col3];
+var column4 = [row1col4, row2col4, row3col4, row4col4];
+
+var row1 = [row1col1, row1col2, row1col3, row1col4];
+var row2 = [row2col1, row2col2, row2col3, row2col4];
+var row3 = [row3col1, row3col2, row3col3, row3col4];
+var row4 = [row4col1, row4col2, row4col3, row4col4];
+
+var columns = [column1, column2, column3, column4];
+
+var rows = [row1, row2, row3, row4];
+
+var board = [
+  row1col1,
+  row1col2,
+  row1col3,
+  row1col4,
+
+  row2col1,
+  row2col2,
+  row2col3,
+  row2col4,
+
+  row3col1,
+  row3col2,
+  row3col3,
+  row3col4,
+
+  row4col1,
+  row4col2,
+  row4col3,
+  row4col4
+];
+
+function gridRow(tiles) {
+  return [gridSquare(tiles[0]), gridSquare(tiles[1]), gridSquare(tiles[2]), gridSquare(tiles[3])];
+}
+
+function gridColumn(tiles) {
+  return [gridSquare(tiles[0]), gridSquare(tiles[1]), gridSquare(tiles[2]), gridSquare(tiles[3])];
+}
+
+function slideAllTiles (direction) {
+  var rowsOrColumns;
+  switch (direction) {
+    case "left":
+      rowsOrColumns = reverseRowsOrColumns(rows);
+      break;
+    case "up":
+      rowsOrColumns = reverseRowsOrColumns(columns);
+      break;
+    case "right":
+      rowsOrColumns = rows;
+      break;
+    case "down":
+      rowsOrColumns = columns;
+      break;
+  }
+  return rowsOrColumns.forEach(slideTilesAndCombineMatches)
+}
+
+function setToNull(square) {
+  square.occupant = null;
+};
+
+function reverseRowsOrColumns(rowsOrColumns) {
+  rowsOrColumns.map(function(rowOrColumn) {
+    rowOrColumn.reverse();
+  });
+  return rowsOrColumns;
+}
+
+function slideTilesAndCombineMatches(rowOrColumn) {
+  moveRowRight(rowOrColumn)
+  if (!hasMatches(rowOrColumn)) {
+    return rowOrColumn;
   } else {
-    moveRowRight(combineMatchesWhereMatchesExist(row));
+    moveRowRight(combineMatchesWhereMatchesExist(rowOrColumn));
   };
-  return row
+  return rowOrColumn;
 };
 
 function moveRowRight (row) {

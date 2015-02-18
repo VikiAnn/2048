@@ -11,9 +11,6 @@ div#board .square {
   height: 100px;
   width: 100px;
   float: left;
-}
-
-div#board .empty {
   border: 1px solid DimGrey;
 }
 
