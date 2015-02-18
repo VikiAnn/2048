@@ -1,14 +1,18 @@
 function Board()  {
   this.board = [
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
-    [null, null, null, null],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
   ]
 }
 
-Board.prototype.tile = function(x, y) {
+Board.prototype.tile = function (x, y) {
   return this.board[x][y];
+}
+
+Board.prototype.assignTile = function (x, y, number) {
+  this.board[x][y] = number
 }
 
 Board.prototype.row = function (row) {
@@ -21,7 +25,9 @@ Board.prototype.allColumns = function () {
   })
 }
 
-Board.prototype.allRows = this.board
+Board.prototype.allRows = function () {
+  return this.board
+}
 
 Board.prototype.column = function (column) {
   return this.board.map(function (row) {
