@@ -1,8 +1,7 @@
 var board = new Board
 $(document).ready( function () {
-  board.assignTile(0, 2, 4)
-  board.assignTile(2, 2, 4)
-  board.assignTile(3, 2, 4)
+  assignRandomTile(board)
+
   renderBoard(board);
 
   $('body').keydown( function (e) {
@@ -35,6 +34,7 @@ $(document).ready( function () {
   };
 
   function renderBoard (board) {
+    assignRandomTile(board)
     board.board.forEach(function (row, x) {
       row.forEach(function (tileNumber, y) {
         appendTileToCorrespondingSquare(x, y, tileNumber)
@@ -47,6 +47,16 @@ $(document).ready( function () {
     var tag = "<div class='tile'>" + tileNumber + "</div>";
     if (tileNumber) {
       $(squareCoordinates).append(tag);
+    }
+  }
+
+  function assignRandomTile (board) {
+    var x = _.sample([0, 1, 2, 3])
+    var y = _.sample([0, 1, 2, 3])
+    if (board.tile(x, y) === 0) {
+      board.assignTile(x, y, _.sample([2, 2, 2, 2, 4]))
+    } else {
+      assignRandomTile(board)
     }
   }
 
