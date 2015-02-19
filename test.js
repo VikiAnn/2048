@@ -37,8 +37,8 @@ test('it slides a tile to the left when given the direction of left', function(a
 
   slideAllTiles(board, "left");
 
-  assert.strictEqual(board.tile(2, 0), 4);
-  assert.strictEqual(board.tile(2, 1), 8);
+  assert.strictEqual(board.tile(2, 0), 8);
+  assert.strictEqual(board.tile(2, 1), 4);
   assert.strictEqual(board.tile(2, 2), 0);
   assert.strictEqual(board.tile(2, 3), 0);
 });
@@ -53,8 +53,8 @@ test('it slides a tile to the right when given the direction of right', function
 
   assert.strictEqual(board.tile(2, 0), 0);
   assert.strictEqual(board.tile(2, 1), 0);
-  assert.strictEqual(board.tile(2, 2), 8);
-  assert.strictEqual(board.tile(2, 3), 4);
+  assert.strictEqual(board.tile(2, 2), 4);
+  assert.strictEqual(board.tile(2, 3), 8);
 });
 
 test('it slides a tile up when given the direction of up', function(assert) {
@@ -66,8 +66,8 @@ test('it slides a tile up when given the direction of up', function(assert) {
 
     slideAllTiles(board, "up");
 
-    assert.strictEqual(board.tile(0, 2), 4);
-    assert.strictEqual(board.tile(1, 2), 8);
+    assert.strictEqual(board.tile(0, 2), 8);
+    assert.strictEqual(board.tile(1, 2), 4);
     assert.strictEqual(board.tile(2, 2), 0);
     assert.strictEqual(board.tile(3, 2), 0);
 });
@@ -82,6 +82,6 @@ test('it slides a tile down when given the direction of down', function(assert) 
 
   assert.strictEqual(board.tile(0, 2), 0);
   assert.strictEqual(board.tile(1, 2), 0);
-  assert.strictEqual(board.tile(2, 2), 8);
-  assert.strictEqual(board.tile(3, 2), 4);
+  assert.strictEqual(board.tile(2, 2), 4);
+  assert.strictEqual(board.tile(3, 2), 8);
 });
