@@ -68,6 +68,7 @@ function hasMatches (row) {
 };
 
 function combineMatchesWhereMatchesExist (row) {
+  row.reverse()
   var skipThisIteration = false
   for (var i = 0; i < (row.length - 1); i++){
     if (skipThisIteration === true) {
@@ -82,7 +83,7 @@ function combineMatchesWhereMatchesExist (row) {
       skipThisIteration = true
     };
   };
-  return row
+  return row.reverse()
 };
 
 function rowContents(row, newArray) {
