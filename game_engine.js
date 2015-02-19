@@ -44,7 +44,7 @@ $(document).ready( function () {
 
   function appendTileToCorrespondingSquare (x, y, tileNumber) {
     var squareCoordinates = generateSquareCoordinates(x, y)
-    var tag = "<div class='tile'>" + tileNumber + "</div>";
+    var tag = "<div class='tile tile-" + tileNumber + " '><span>" + tileNumber + "</span></div>";
     if (tileNumber) {
       $(squareCoordinates).append(tag);
     }
