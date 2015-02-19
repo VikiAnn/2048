@@ -3,52 +3,55 @@
   <head>
     <title>2048</title>
     <link rel="stylesheet" href="style.css">
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script src="board.js"></script>
+    <script src="game_engine.js"></script>
   </head>
   <body>
-    <div id="board">
-      <div class="row1 row">
-        <div class="row1 col1 square empty">
+    <h1>2048</h1>
+    <div id="game-board">
+      <div class="row">
+        <div class="row0col0 square">
         </div>
-        <div class="row1 col2 square empty">
+        <div class="row0col1 square">
         </div>
-        <div class="row1 col3 square empty">
+        <div class="row0col2 square">
         </div>
-        <div class="row1 col4 square empty">
-        </div>
-      </div>
-      <div class="row2 row">
-        <div class="row2 col1 square empty">
-        </div>
-        <div class="row2 col2 square empty">
-        </div>
-        <div class="row2 col3 square empty">
-        </div>
-        <div class="row2 col4 square empty">
+        <div class="row0col3 square">
         </div>
       </div>
-      <div class="row3 row">
-        <div class="row3 col1 square empty">
+      <div class="row">
+        <div class="row1col0 square">
         </div>
-        <div class="row3 col2 square empty">
+        <div class="row1col1 square">
         </div>
-        <div class="row3 col3 square empty">
+        <div class="row1col2 square">
         </div>
-        <div class="row3 col4 square empty">
+        <div class="row1col3 square">
         </div>
       </div>
-      <div class="row4 row">
-        <div class="row4 col1 square empty">
+      <div class="row">
+        <div class="row2col0 square">
         </div>
-        <div class="row4 col2 square empty">
+        <div class="row2col1 square">
         </div>
-        <div class="row4 col3 square empty">
+        <div class="row2col2 square">
         </div>
-        <div class="row4 col4 square empty">
+        <div class="row2col3 square">
+        </div>
+      </div>
+      <div class="row">
+        <div class="row3col0 square">
+        </div>
+        <div class="row3col1 square">
+        </div>
+        <div class="row3col2 square">
+        </div>
+        <div class="row3col3 square">
         </div>
       </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="bower_components/underscore/underscore_min.js"</script>
-    <script src="script.js"></script>
   </body>
 </html>

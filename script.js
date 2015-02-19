@@ -1,15 +1,94 @@
-function moveRowRight(row) {
+function slideAllTiles (board, direction) {
+  var rowsOrColumns;
+  switch (direction) {
+    case "left":
+      rowsOrColumns = reverseRowsOrColumns(board.allRows());
+      break;
+    case "up":
+      rowsOrColumns = reverseRowsOrColumns(board.allColumns());
+      break;
+    case "right":
+      rowsOrColumns = board.allRows();
+      break;
+    case "down":
+      rowsOrColumns = board.allColumns();
+      break;
+  }
+
+  rowsOrColumns.forEach(slideTilesAndCombineMatches);
+
+  if (direction === "left" || direction === "up") {
+    reverseRowsOrColumns(rowsOrColumns);
+  }
+
+  if (direction === "up" || direction === "down") {
+    rowsOrColumns = convertColumnsToRows(rowsOrColumns);
+    board.replaceAll(rowsOrColumns)
+    return board
+  } else {
+    return rowsOrColumns
+  }
+
+}
+
+function reverseRowsOrColumns(rowsOrColumns) {
+  return rowsOrColumns.map(function(rowOrColumn) {
+    return rowOrColumn.reverse();
+  });
+}
+
+
+
+function slideTilesAndCombineMatches(rowOrColumn) {
+  moveRowRight(rowOrColumn)
+  if (!hasMatches(rowOrColumn)) {
+    return rowOrColumn;
+  } else {
+    moveRowRight(combineMatchesWhereMatchesExist(rowOrColumn));
+  };
+  return rowOrColumn;
+};
+
+function moveRowRight (row) {
   do {
     var startingRow = []
     rowContents(row, startingRow)
-    var newRow = getNextRowIteration(row);
-  } while (!_.isEqual(rowContents(newRow, []), startingRow));
-  return newRow;
+    row = getNextRowIteration(row);
+  } while (!_.isEqual(rowContents(row, []), startingRow));
+};
+
+function hasMatches (row) {
+  for (var i = 0; i < (row.length - 1); i++){
+    if (!row[i]) {
+      continue;
+    } else if (row[i] === row[i + 1]) {
+      return true;
+    };
+  };
+};
+
+function combineMatchesWhereMatchesExist (row) {
+  row.reverse()
+  var skipThisIteration = false
+  for (var i = 0; i < (row.length - 1); i++){
+    if (skipThisIteration === true) {
+      continue;
+      skipThisIteration = false;
+    };
+    if (!row[i]) {
+      continue;
+    } else if (row[i] === row[i + 1]) {
+      row[i] = 0;
+      row[i + 1] *= 2;
+      skipThisIteration = true
+    };
+  };
+  return row.reverse()
 };
 
 function rowContents(row, newArray) {
   for (i=0; i < row.length; i++) {
-    newArray[i] = Boolean(row[i].occupant)
+    newArray[i] = Boolean(row[i])
   };
   return newArray
 };
@@ -23,13 +102,21 @@ function getNextRowIteration(row) {
 
 function moveTileRightIfTileExists(row, index) {
   var currentSquare = row[index];
-  var currentTile   = currentSquare.occupant;
   var nextSquare    = row[index + 1];
-  if (!currentTile || nextSquare.occupant) {
+  if (!currentSquare || nextSquare) {
     return;
   } else {
-    nextSquare.occupant    = currentTile;
-    currentSquare.occupant = null;
+    row[index + 1] = currentSquare;
+    row[index]     = 0;
   };
   return row
 };
+
+
+function convertColumnsToRows (cols) {
+  return [0, 1, 2, 3].map(function (index) {
+    return cols.map(function (col) {
+      return col[index];
+    });
+  });
+}
