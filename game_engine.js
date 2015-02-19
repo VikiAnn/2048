@@ -48,16 +48,6 @@ $(document).ready( function () {
     }
   }
 
-//function assignRandomTile (board) {
-//  var x = _.sample([0, 1, 2, 3])
-//  var y = _.sample([0, 1, 2, 3])
-//  if (board.tile(x, y) === 0) {
-//    board.assignTile(x, y, _.sample([2, 2, 2, 2, 4]))
-//  } else {
-//    assignRandomTile(board)
-//  }
-//}
-
   function generateSquareCoordinates (x, y) {
     return (".row" + x + "col"+ y);
   }
