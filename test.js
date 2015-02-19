@@ -45,28 +45,43 @@ test('it slides a tile to the left when given the direction of left', function(a
 
 test('it slides a tile to the right when given the direction of right', function(assert) {
   var board = this.board
-  slideAllTiles("right");
-  assert.strictEqual(row2col1.occupant, 0);
-  assert.strictEqual(row2col2.occupant, 0);
-  assert.strictEqual(row2col3.occupant.number, 4);
-  assert.strictEqual(row2col4.occupant.number, 4);
+  board.assignTile(2, 0, 4)
+  board.assignTile(2, 2, 4)
+  board.assignTile(2, 3, 4)
+
+  slideAllTiles(board, "right");
+
+  assert.strictEqual(board.tile(2, 0), 0);
+  assert.strictEqual(board.tile(2, 1), 0);
+  assert.strictEqual(board.tile(2, 2), 8);
+  assert.strictEqual(board.tile(2, 3), 4);
 });
 
 test('it slides a tile up when given the direction of up', function(assert) {
-  var board = this.board
-  slideAllTiles("up");
-  assert.strictEqual(row1col1.occupant.number, 4);
-  assert.strictEqual(row2col1.occupant.number, 4);
-  assert.strictEqual(row3col1.occupant, 0);
-  assert.strictEqual(row4col1.occupant, 0);
+    var board = this.board
 
+    board.assignTile(0, 2, 4)
+    board.assignTile(2, 2, 4)
+    board.assignTile(3, 2, 4)
+
+    slideAllTiles(board, "up");
+
+    assert.strictEqual(board.tile(0, 2), 4);
+    assert.strictEqual(board.tile(1, 2), 8);
+    assert.strictEqual(board.tile(2, 2), 0);
+    assert.strictEqual(board.tile(3, 2), 0);
 });
 
 test('it slides a tile down when given the direction of down', function(assert) {
   var board = this.board
-  slideAllTiles("down");
-  assert.strictEqual(row1col1.occupant, 0);
-  assert.strictEqual(row2col1.occupant, 0);
-  assert.strictEqual(row3col1.occupant.number, 4);
-  assert.strictEqual(row4col1.occupant.number, 4);
+  board.assignTile(0, 2, 4)
+  board.assignTile(2, 2, 4)
+  board.assignTile(3, 2, 4)
+
+  slideAllTiles(board, "down");
+
+  assert.strictEqual(board.tile(0, 2), 0);
+  assert.strictEqual(board.tile(1, 2), 0);
+  assert.strictEqual(board.tile(2, 2), 8);
+  assert.strictEqual(board.tile(3, 2), 4);
 });

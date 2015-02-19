@@ -29,16 +29,23 @@ function slideAllTiles (board, direction) {
       break;
   }
 
-  rowsOrColumns.forEach(slideTilesAndCombineMatches)
+  rowsOrColumns.forEach(slideTilesAndCombineMatches);
+
   if (direction === "left" || direction === "up") {
-    return reverseRowsOrColumns(rowsOrColumns)
+    reverseRowsOrColumns(rowsOrColumns);
+  }
+
+  if (direction === "up" || direction === "down") {
+    rowsOrColumns = convertColumnsToRows(rowsOrColumns);
+    board.replaceAll(rowsOrColumns)
+    return board
   } else {
     return rowsOrColumns
   }
+
 }
 
 function reverseRowsOrColumns(rowsOrColumns) {
-  // rowsOrColumns = rowsOrColumns.slice();
   return rowsOrColumns.map(function(rowOrColumn) {
     return rowOrColumn.reverse();
   });
@@ -117,3 +124,12 @@ function moveTileRightIfTileExists(row, index) {
   };
   return row
 };
+
+
+function convertColumnsToRows (cols) {
+  return [0, 1, 2, 3].map(function (index) {
+    return cols.map(function (col) {
+      return col[index];
+    });
+  });
+}
