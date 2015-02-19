@@ -37,79 +37,64 @@ function reverseRowsOrColumns(rowsOrColumns) {
   });
 }
 
-
-
 function slideTilesAndCombineMatches(rowOrColumn) {
-  moveRowRight(rowOrColumn)
+  slideRowOrColumn(rowOrColumn)
   if (!hasMatches(rowOrColumn)) {
     return rowOrColumn;
   } else {
-    moveRowRight(combineMatchesWhereMatchesExist(rowOrColumn));
+    slideRowOrColumn(combineMatchesWhereMatchesExist(rowOrColumn));
   };
   return rowOrColumn;
 };
 
-function moveRowRight (row) {
+function slideRowOrColumn (rowOrColumn) {
   do {
-    var startingRow = []
-    rowContents(row, startingRow)
-    row = getNextRowIteration(row);
-  } while (!_.isEqual(rowContents(row, []), startingRow));
+    var startingRowOrColumn = rowOrColumn.slice();
+    rowOrColumn = getNextSlidingIteration(rowOrColumn);
+  } while (!_.isEqual(rowOrColumn, startingRowOrColumn));
 };
 
-function hasMatches (row) {
-  for (var i = 0; i < (row.length - 1); i++){
-    if (!row[i]) {
-      continue;
-    } else if (row[i] === row[i + 1]) {
+function hasMatches (rowOrColumn) {
+  for (var i = 0; i < (rowOrColumn.length - 1); i++){
+    if (rowOrColumn[i] === rowOrColumn[i + 1]) {
       return true;
     };
   };
 };
 
-function combineMatchesWhereMatchesExist (row) {
-  row.reverse()
+function combineMatchesWhereMatchesExist (rowOrColumn) {
+  rowOrColumn.reverse()
   var skipThisIteration = false
-  for (var i = 0; i < (row.length - 1); i++){
+  for (var i = 0; i < (rowOrColumn.length - 1); i++){
     if (skipThisIteration === true) {
-      continue;
       skipThisIteration = false;
     };
-    if (!row[i]) {
-      continue;
-    } else if (row[i] === row[i + 1]) {
-      row[i] = 0;
-      row[i + 1] *= 2;
+    if (rowOrColumn[i] === rowOrColumn[i + 1]) {
+      rowOrColumn[i] = 0;
+      rowOrColumn[i + 1] *= 2;
       skipThisIteration = true
     };
   };
-  return row.reverse()
+  return rowOrColumn.reverse()
 };
 
-function rowContents(row, newArray) {
-  for (i=0; i < row.length; i++) {
-    newArray[i] = Boolean(row[i])
+function getNextSlidingIteration(rowOrColumn) {
+  for (i=0; i < (rowOrColumn.length - 1); i++) {
+    slideTileIfTileExists(rowOrColumn, i);
   };
-  return newArray
-};
-
-function getNextRowIteration(row) {
-  for (i=0; i < (row.length - 1); i++) {
-    var newRow = moveTileRightIfTileExists(row, i);
-  };
-  return row
+  return rowOrColumn
 }
 
-function moveTileRightIfTileExists(row, index) {
-  var currentSquare = row[index];
-  var nextSquare    = row[index + 1];
+function slideTileIfTileExists(rowOrColumn, index) {
+  var currentSquare = rowOrColumn[index];
+  var nextSquare    = rowOrColumn[index + 1];
   if (!currentSquare || nextSquare) {
     return;
   } else {
-    row[index + 1] = currentSquare;
-    row[index]     = 0;
+    rowOrColumn[index + 1] = currentSquare;
+    rowOrColumn[index]     = 0;
   };
-  return row
+  return rowOrColumn
 };
 
 
