@@ -1,17 +1,3 @@
-
-function appendTileToCorrespondingSquare (x, y) {
-  var square = this.board.tile(x, y)
-  var squareCoordinates = generateSquareCoordinates(x, y)
-  var tag = "<div class='tile'>" + square + "</div>";
-  if (square) {
-    $(squareCoordinates).append(tag);
-  }
-}
-
-function generateSquareCoordinates (x, y) {
-  return (".row" + x + "col"+ y);
-}
-
 function slideAllTiles (board, direction) {
   var rowsOrColumns;
   switch (direction) {
