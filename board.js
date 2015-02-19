@@ -39,3 +39,13 @@ Board.prototype.column = function (col) {
     return row[col];
   })
 }
+
+Board.prototype.assignRandomTile = function () {
+  var x = _.sample([0, 1, 2, 3])
+  var y = _.sample([0, 1, 2, 3])
+  if (this.tile(x, y) === 0) {
+    this.assignTile(x, y, _.sample([2, 2, 2, 2, 4]))
+  } else {
+    this.assignRandomTile(this.board)
+  }
+}

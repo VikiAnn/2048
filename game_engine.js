@@ -1,40 +1,38 @@
 var board = new Board
 $(document).ready( function () {
-  assignRandomTile(board)
+  board.assignRandomTile()
 
   renderBoard(board);
 
   $('body').keydown( function (e) {
     switch (e.which){
       case 37:
-        slideAllTiles(board, "left");
-        clearRenderedBoard();
-        renderBoard(board);
+        slideTilesAndResetBoard(board, "left")
         break;
       case 38:
-        slideAllTiles(board, "up");
-        clearRenderedBoard();
-        renderBoard(board);
+        slideTilesAndResetBoard(board, "up")
         break;
       case 39:
-        slideAllTiles(board, "right");
-        clearRenderedBoard();
-        renderBoard(board);
+        slideTilesAndResetBoard(board, "right")
         break;
       case 40:
-        slideAllTiles(board, "down");
-        clearRenderedBoard();
-        renderBoard(board);
+        slideTilesAndResetBoard(board, "down")
         break;
     };
   })
+
+  function slideTilesAndResetBoard(board, direction) {
+    slideAllTiles(board, direction);
+    clearRenderedBoard();
+    renderBoard(board);
+  }
 
   function clearRenderedBoard() {
     $('.square').empty()
   };
 
   function renderBoard (board) {
-    assignRandomTile(board)
+    board.assignRandomTile()
     board.board.forEach(function (row, x) {
       row.forEach(function (tileNumber, y) {
         appendTileToCorrespondingSquare(x, y, tileNumber)
@@ -50,15 +48,15 @@ $(document).ready( function () {
     }
   }
 
-  function assignRandomTile (board) {
-    var x = _.sample([0, 1, 2, 3])
-    var y = _.sample([0, 1, 2, 3])
-    if (board.tile(x, y) === 0) {
-      board.assignTile(x, y, _.sample([2, 2, 2, 2, 4]))
-    } else {
-      assignRandomTile(board)
-    }
-  }
+//function assignRandomTile (board) {
+//  var x = _.sample([0, 1, 2, 3])
+//  var y = _.sample([0, 1, 2, 3])
+//  if (board.tile(x, y) === 0) {
+//    board.assignTile(x, y, _.sample([2, 2, 2, 2, 4]))
+//  } else {
+//    assignRandomTile(board)
+//  }
+//}
 
   function generateSquareCoordinates (x, y) {
     return (".row" + x + "col"+ y);
